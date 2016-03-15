@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Tutorial 7 - Building and Debugging &middot; Argonjs
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body class="theme-base-09">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>This site contains a collection of tutorials for web developers using <a href="http://argonjs.io" target="_blank">argon.js</a> to add AR content to a web application.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <li class="sidebar-nav-item"><a href="/tutorials/WelcomePage">Home</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/Overview">Overview</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial1">Tutorial 1 - Getting Started</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial2">Tutorial 2 - Compass</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial3">Tutorial 3 - Periodic Table</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial4">Tutorial 4 - Panorama Reality</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial5">Tutorial 5 - Geolocation</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial6">Tutorial 6 - Use Argon.js with Vuforia</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial7">Tutorial 7 - Building and Debugging</a></li>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="/argon.js.zip">Download Argon.js</a>
+    <a class="sidebar-nav-item" href="https://github.com/argonjs/argon.js">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.0.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2016. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Argonjs</a>
+            <small>Tutorials</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Tutorial 7 - Building and Debugging</h1>
+  <span class="post-date">01 Mar 2016</span>
+  <h3 id="introduction">Introduction</h3>
+
+<p>The code and html that goes into an Argon3 application can be debugged in various ways. Any html that is going to appear on the screen or in the “Page Mode” can be tested and refined in the browser on a laptop or desktop machine. Much of the javascript can be tested in the same way. However, an “end-to-end” test of Argon3 application for the iPhone or iPad presents a challenge to debug. We include a system to facilitate real-time debugging of the app running on the phone.</p>
+
+<p>The idea is to connect the phone or tablet to a computer running the Safari or Chrome browser. (You should be able to use Chrome on Windows or Linux; Chrome or Safari on Mac OS X.) The html and javascript code runs in the browser while taking position and orientation input from the phone or tablet. The developer can therefore use the debugging tools available on the browser to track variables, report errors, etc. This combination of browser and phone makes it possible to test and debug much of the look and feel of the application.</p>
+
+<p>The Argon3 debugger uses node.js (the open source, runtime environment for server-side applications) to serve the application to the laptop browser and direct input from phone or tablet. In addition, setting up the debugger requires jspm, gulp and yeoman. jspm is a javascript package manager for the SystemJS universal module loader (jspm.io). We use this to download the necessary Javascript libraries, including the latest version of argon.js and others. Gulp is a streaming build system for node.js. And Yeoman (yeoman.io) helps you kickstart new projects using installed templates.</p>
+
+<h3 id="two-cases-to-use-the-debugging-system">Two cases to use the debugging system</h3>
+<p>The system described here can be used in two cases :</p>
+
+<ul>
+  <li>
+    <p>To generate a shell for new project that you are starting. This shell will consists of folders and files to help you structure the project according to current best practices: separating the html from the code (as we showed you in the preceding examples) and also providing dynamic links to help ensure that the argon.js and other resources stay up to date.</p>
+  </li>
+  <li>
+    <p>To debug existing completed Argon3 applications without rewriting or refactoring the code or other assets.</p>
+  </li>
+</ul>
+
+<h3 id="getting-started">Getting started</h3>
+<p>To use the Argon generator, do the following. Note that all the commands below are entered into the Terminal utility on your Mac OS X or similar utility on Window or Linux.</p>
+
+<ol>
+  <li>
+    <p>Install <strong>node.js/npm</strong>. Go to <a href="http://nodejs.org">http://nodejs.org</a> and install node.js/npm on your computer. The npm stands for node package manager, which you will use in the following steps</p>
+  </li>
+  <li>
+    <p>Install <strong>gulp</strong>, <strong>jspm</strong>, <strong>yo</strong>, and <strong>generator-argon</strong>: The node package manager is used to download the other packages needed: gulp, jspm, yo (from yeoman), and our package, generator-argon. This command will download all four and install them so that they are available from any directory on your machine (-g).</p>
+  </li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">npm install -g gulp jspm yo generator-argon</code></pre></figure>
+
+<h3 id="case-1-using-the-generator-to-create-a-new-project">Case 1: Using the generator to create a new project</h3>
+<p>The next step is to create a new, empty directory where ever you’d like your new project to be (but not in the generator-argon directory that you created above), cd into it, and use ‘yo argon’ to fill it with a new sample project. These are the commands that will create the directory my-argon-project and populate it:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">mkdir my-argon-project</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">cd my-argon-project</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">yo argon</code></pre></figure>
+
+<p>The project is set up with an index.html file at the top level, that uses SystemJS to load the application’s Javascript from src/app.js. The preceding tutorials (2-6) have already shown you how to separate the html file from the app.js file. This project template follows that same practice. You write your html into the index.html file. All the javascript code goes in the src/app.js file (or multiple files in the src folder if you prefer).</p>
+
+<p>When you are ready to test the code that you have written, use your Terminal to cd back to the top level of your project (the my-argon-project directory or whatever the name is). Then issue this command:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">gulp dev</code></pre></figure>
+
+<p>This will set up the server to run on your computer. In order to debug, your computer and your phone must be on the same local area network. Find the ip address of your computer. (On a Mac you can find this address by looking at the Network utility under System Preferences.)
+To simply see your application running, open Argon on your phone and enter:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">&lt;your-ip-address&gt;:1337/my-argon-project/www/index.html</code></pre></figure>
+
+<p>(The server will be serving your application on port 1337.)</p>
+
+<p>To debug your application, there are two steps:</p>
+
+<ol>
+  <li>ON YOUR COMPUTER: Type the path name of your index.html file into your Safari or Chrome browser. In this case you would type:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">&lt;your-ip-address&gt;:1337/my-argon-project/index.html</code></pre></figure>
+
+<ol>
+  <li>ON YOUR PHONE: type:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">&lt;your-ip-address&gt;:1337/debug</code></pre></figure>
+
+<p>These two urls should succeed in connecting your phone to the computer. The computer browser will display all the 3D and html content of your application. It will not, however, be able to display the background video from the phone’s camera. Instead you will see the 3D objects and html against a white background. The phone will provide the orientation and position input.</p>
+
+<p>As you move the phone around, the content of your application will respond just as they would in the normal operation of your application on the phone. Also, you can use any of the debugging features of Safari or Chrome to examine the code and check for errors.</p>
+
+<h3 id="case-2-using-the-generator-to-debug-an-existing-project-application">Case 2: Using the generator to debug an existing project application</h3>
+<p>To debug an existing application without refactoring the code, you create a new directory and use yeoman as in Case 1. That is, open your Terminal program, cd to wherever you want to setup your test directory and do the following:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">mkdir my-argon-project  [you can use any directory name you like]</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">cd my-argon-project</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">yo argon</code></pre></figure>
+
+<p>This last step creates all the scaffolding files and folders just as in Case 1. After yo has finished, stay in the same directory and create another subdirectory, which must be called “www”:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">mkdir www</code></pre></figure>
+
+<p>Then take the file and folder hierarchy of your application and copy them into this www directory. You can test and debug your application in exactly the same way that we describe in Case 1. To repeat:
+Issue this command:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">gulp dev</code></pre></figure>
+
+<p>This will set up the server to run on your computer. In order to debug, your computer and your phone must be on the same local area network. Find the ip address of your computer. (On a Mac you can find this address by looking at the Network dialogue box under System Preferences.)
+To simply see your application running, open Argon on your phone and enter:</p>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">&lt;your-ip-address&gt;:1337/my-argon-project/www/index.html</code></pre></figure>
+
+<p>To debug your application, there are two steps:</p>
+
+<ol>
+  <li>ON YOUR COMPUTER: Type the path name of your index.html file into your Safari or Chrome browser. In this case you would type:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">&lt;your-ip-address&gt;:1337/my-argon-project/index.html</code></pre></figure>
+
+<ol>
+  <li>ON YOUR PHONE: type:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-textcontent" data-lang="textcontent">&lt;your-ip-address&gt;:1337/debug</code></pre></figure>
+
+<p>These two urls should succeed in connecting your phone to the computer. The computer browser will display all the 3D and html content of your application. It will not, however, be able to display the background video from the phone’s camera. Instead you will see the 3D objects and html against a white background. The phone will provide the orientation and position input.</p>
+
+<p>As you move the phone around, the content of your application will respond just as they would in the normal operation of your application on the phone. Also, you can use any of the debugging features of Safari or Chrome to examine the code and check for errors.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/tutorials/WelcomePage.html">
+            Welcome
+            <small>01 Mar 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/tutorials/tutorial6">
+            Tutorial 6 - Using Argon.js with Vuforia
+            <small>01 Mar 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/tutorials/tutorial5">
+            Tutorial 5 - Geolocation
+            <small>01 Mar 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+      </div>
+    </div>
+
+  </body>
+</html>

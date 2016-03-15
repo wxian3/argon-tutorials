@@ -15,14 +15,14 @@
   </title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/argon-tutorials/public/css/poole.css">
-  <link rel="stylesheet" href="/argon-tutorials/public/css/syntax.css">
-  <link rel="stylesheet" href="/argon-tutorials/public/css/lanyon.css">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 
   <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/argon-tutorials/public/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/argon-tutorials/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
@@ -42,14 +42,15 @@
   </div>
 
   <nav class="sidebar-nav">
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/WelcomePage">Home</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Overview">Overview</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial1">Tutorial 1</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial2">Tutorial 2</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial3">Tutorial 3</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial4">Tutorial 4</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial5">Tutorial 5</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial6">Tutorial 6</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/WelcomePage">Home</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/Overview">Overview</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial1">Tutorial 1 - Getting Started</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial2">Tutorial 2 - Compass</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial3">Tutorial 3 - Periodic Table</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial4">Tutorial 4 - Panorama Reality</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial5">Tutorial 5 - Geolocation</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial6">Tutorial 6 - Use Argon.js with Vuforia</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial7">Tutorial 7 - Building and Debugging</a></li>
 
     
 
@@ -60,19 +61,13 @@
       
     
       
-        
-          <a class="sidebar-nav-item" href="/about">About</a>
-        
-      
-    
-      
     
       
     
       
     
 
-    <a class="sidebar-nav-item" href="/argon-tutorials//argon-tutorials.zip">Download</a>
+    <a class="sidebar-nav-item" href="/argon.js.zip">Download Argon.js</a>
     <a class="sidebar-nav-item" href="https://github.com/argonjs/argon.js">GitHub project</a>
     <span class="sidebar-nav-item">Currently v1.0.0</span>
   </nav>
@@ -104,10 +99,10 @@
   <h1 class="post-title">Tutorial 5 - Geolocation</h1>
   <span class="post-date">01 Mar 2016</span>
   <h3 id="before-you-start">Before you start</h3>
-<p>Make sure you have completed <a href="/about">tutorial 1</a></p>
+<p>Make sure you have completed <a href="/tutorials/tutorial1">tutorial 1</a></p>
 
 <h3 id="what-you-should-see">What you should see</h3>
-<p>Download <a href="https://itunes.apple.com/us/app/argon3/id944297993?ls=1&amp;mt=8">Argon3</a> and <a href="/argon-tutorials/tutorial2">Try Now</a></p>
+<p>Download <a href="https://itunes.apple.com/us/app/argon3/id944297993?ls=1&amp;mt=8">Argon3</a> and <a href="/code/argon.js/dist/argon-tutorials/tutorial5-Geolocation">Try Now</a></p>
 
 <p>If you are on the Georgia Tech campus, move your camera around until you see a floating Buzz box.
 Regardless of location, you should see a floating wooden box.</p>
@@ -122,26 +117,189 @@ Regardless of location, you should see a floating wooden box.</p>
 
 <p>This example illustrates both ways of locating content: 1. It finds the current location of the viewer and positions a cube at a well-known nearby location (the Georgia Tech campus, for us). This cube is covered with a texture of Buzz, the Georgia Tech mascot.  2. It creates a second cube a small distance away from where the user was positioned when the example was loaded.  It does this by adding a small amount to the user’s current east-west location, in the local taronhree.js cartesian coordinates.  This illustrates how to create geospatial content based on the current location and update the internal geospatial location of the object</p>
 
-<h3 id="main-file-indexhtml">Main file (index.html)</h3>
-<p>In the index.html, the body tag is in two parts.  The “argon-immersive-context” div is used to create a small dynamic information box at the bottom of the screen that will track the user’s location and the position of the two objects.  Text outside this special div is rendered only when the user enters “Page Mode” by touching the icon in the top right corner of the interface. In this case,  the text in Page Mode offers an explanation of the example that appears on the screen over the background context.</p>
+<h2 id="main-file-indexhtml">Main file (index.html)</h2>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"argon-immersive-context"</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"menu"</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="nx">button</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"location"</span><span class="o">&gt;</span><span class="nx">lon</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="nx">lat</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="sr">/div&gt; </span><span class="err"> 
-</span>  <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
-</span>  <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">A</span> <span class="nx">Simple</span> <span class="nx">Geolocation</span> <span class="nx">example</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
-</span>  <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">This</span> <span class="nx">example</span> <span class="nx">takes</span> <span class="nx">the</span> <span class="nx">current</span> <span class="nx">location</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">viewer</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">positions</span> <span class="nx">a</span> <span class="nx">cube</span> <span class="nx">at</span> <span class="nx">a</span> <span class="nx">well</span><span class="o">-</span><span class="nx">known</span> <span class="nx">nearby</span> <span class="nx">location</span> <span class="p">(</span><span class="nx">the</span> <span class="nx">Georgia</span> <span class="nx">Tech</span> <span class="nx">campus</span><span class="p">,</span> <span class="k">for</span> <span class="nx">us</span><span class="p">),</span> <span class="nx">and</span> <span class="nx">creates</span> <span class="nx">a</span> <span class="nx">second</span> <span class="nx">cube</span> <span class="nx">a</span> <span class="nx">small</span> <span class="nx">distance</span> <span class="nx">away</span> <span class="nx">from</span> <span class="nx">where</span> <span class="nx">the</span> <span class="nx">viewer</span> <span class="nx">was</span> <span class="nx">positioned</span> <span class="nx">when</span> <span class="nx">the</span> <span class="nx">example</span> <span class="nx">was</span> <span class="nx">loaded</span><span class="p">.</span>  <span class="nx">We</span> <span class="k">do</span> <span class="k">this</span> <span class="nx">by</span> <span class="nx">adding</span> <span class="nx">a</span> <span class="nx">small</span> <span class="nx">amount</span> <span class="nx">to</span> <span class="nx">our</span> <span class="nx">current</span> <span class="nx">east</span><span class="o">-</span><span class="nx">west</span> <span class="nx">location</span><span class="p">,</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">local</span> <span class="nx">Three</span><span class="p">.</span><span class="nx">js</span> <span class="nx">cartesian</span> <span class="nx">coordinates</span><span class="p">.</span>  <span class="nx">This</span> <span class="nx">illustrates</span> <span class="nx">how</span> <span class="nx">to</span> <span class="nx">create</span> <span class="nx">geospatial</span> <span class="nx">content</span> <span class="nx">based</span> <span class="nx">on</span> <span class="nx">the</span> <span class="nx">current</span> <span class="nx">location</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">update</span> <span class="nx">the</span> <span class="nx">internal</span> <span class="nx">geospatial</span> <span class="nx">location</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">object</span><span class="p">.</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/body&gt;</span></code></pre></figure>
+<p>In the index.html, the body tag is in two parts.  The “argon-immersive-context” div is used to create a small dynamic information box at the bottom of the screen that will track the user’s location and the position of the two objects.  Text outside this special div is rendered only when the user enters “Page Mode” by touching the icon in the top right corner of the interface. In this case,  the text in Page Mode offers an explanation of the example that appears on the screen over the background context. </p>
 
-<h3 id="code-file-appjs">Code file (app.js)</h3>
-<p>To begin we define the immersive Context to be a panorama (instead of the device’s camera, which is the default).</p>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"argon-immersive-context"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"location"</span><span class="nt">&gt;</span>lon (0) lat (0)<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>  
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>A Simple Geolocation example<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;p&gt;</span>This example takes the current location of the viewer, and positions a cube at a well-known nearby location (the Georgia Tech campus, for us), and creates a second cube a small distance away from where the viewer was positioned when the example was loaded.  We do this by adding a small amount to our current east-west location, in the local Three.js cartesian coordinates.  This illustrates how to create geospatial content based on the current location, and update the internal geospatial location of the object.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js">  <span class="kd">var</span> <span class="nx">panoramaReality</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Argon</span><span class="p">.</span><span class="nx">Reality</span><span class="p">.</span><span class="nx">Panorama</span><span class="p">;</span>
-  <span class="nx">Argon</span><span class="p">.</span><span class="nx">immersiveContext</span><span class="p">.</span><span class="nx">setRequiredReality</span><span class="p">(</span><span class="nx">panoramaReality</span><span class="p">);</span></code></pre></figure>
+<h2 id="code-file-appjs">Code file (app.js)</h2>
 
-<p>Now we create the panorama itself.</p>
+<p>As indicated in 1-Getting Started, we place the javascript itself in a separate file: app.js.  In the javascript file, we first initialize the immersive context and <em>three.js</em> (using the threestrap bootstrapping library):</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  var context = Argon.immersiveContext;
+  var options = THREE.Bootstrap.createArgonOptions( context );
+  var three = THREE.Bootstrap( options );</code></pre></figure>
+
+<p>Next we create two geospatial objects to display in the application. One of the objects will be located at a particular place on the globe (specified by latitude, longitude, and altitude or LLA). This will be a cube with the Georgia Tech mascot, Buzz, textured mapped on it. The other will be a cube that is texture-mapped to look like a wooden box: this one will be positioned near the starting location and then will move so that it will always be in the vicinity of the camera (phone). </p>
+
+<p>As explained in the Overview, every geospatial object has two components: a Cesium Entity (which determines its location) and a <em>three.js</em> Object3D (which determines its characteristics as a 3D object, such as shape and texture). </p>
+
+<h2 id="the-buzz-cube-positioned-at-georgia-tech">The “Buzz” cube positioned at Georgia Tech</h2>
+
+<p>First we use <em>three.js</em> to create a large cube 10mx10mx10m  and attach the Buzz texture.  This cube has the variable name buzz.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">var buzz = new THREE.Object3D;
+  var loader = new THREE.TextureLoader();
+  loader.load( 'buzz.png', function ( texture ) {
+  var geometry = new THREE.BoxGeometry(10, 10, 10)
+  var material = new THREE.MeshBasicMaterial( { map: texture }
+  var mesh = new THREE.Mesh( geometry, material );
+  mesh.scale.set(10,10,10);
+  buzz.add( mesh );
+  })</code></pre></figure>
+
+<p>Now we create a Cesium Entity located at the longitude and latitude near Georgia Tech. You can adjust this to a position near you by substituting your lon/lat, which you can find from Google Maps.  (You can also add height in meters as a third parameter.)</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  var gatechGeo = new Argon.Cesium.Entity({
+      name: "Georgia Tech",
+      position: Argon.Cesium.Cartesian3.fromDegrees(-84.398881, 33.778463)  
+    })</code></pre></figure>
+
+<p>Finally we create the <em>argon.js</em> object that is linked to this Cesium Entity and attach the buzz cube. This adds the cube to the scene graph for display.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  var gatechGeoTarget = three.argon.objectFromEntity(gatechGeo);
+  gatechGeoTarget.add(buzz);</code></pre></figure>
+
+<h2 id="the--wooden-box-position-moves-with-the-camera">The  wooden box (position moves with the camera)</h2>
+
+<p>We now create the second object:  a 1mx1mX1m cube with a wooden texture. (This wooden texture comes from https://www.flickr.com/photos/photoshoproadmap/8640003215/sizes/l/in/photostream/, licensed under https://creativecommons.org/licenses/by/2.0/legalcode)</p>
+
+<p>We create two <em>three.js</em> Object3Ds:  the box itself and another called boxGeoObject.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"> var boxGeoObject = new THREE.Object3D; 
+ var box = new THREE.Object3D;
+ var loader = new THREE.TextureLoader();
+ loader.load( 'box.png', function ( texture ) {
+   var geometry = new THREE.BoxGeometry(1, 1, 1)
+   var material = new THREE.MeshBasicMaterial( { map: texture } )
+   var mesh = new THREE.Mesh( geometry, material )
+   box.add( mesh );
+  })</code></pre></figure>
+
+<p>Now we add the box to the boxGeoObject and the boxGeoObject to the scene graph.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">  boxGeoObject .add(box)
+  three.scene.add(boxGeoObject );</code></pre></figure>
+
+<p>The boxGeoObject is the object that we will move around (and box will move with it).  So we need to make an entity for the boxGeoObject . </p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"> var boxGeoEntity = three.argon.entityFromObject(boxGeoObject);</code></pre></figure>
+
+<h2 id="the-argonrealitychange-event">The argon:realityChange event</h2>
+
+<p>Finally we create two event handlers. One is for assigning and changing the Reality (the background view) that the application will use.  An <em>argon.js</em> context consists of AR content and a Reality (See the Background for a further explanation.)   Each time the Context is assigned a new Reality, including the first time, we receive a “realityChange” event.  The application should do initialization that is based on the state of the world here. <em>argon.js</em> has a state parameter with the following entries:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">{
+    reality: Argon.Reality,
+    previousReality: Argon.Reality 
+  }</code></pre></figure>
+
+<p> The  state.previousReality will be undefined the first time. The following code checks for the reality change.  Unless the user moves 5 km from her initial position, this event will only fire once, when the application is launched.  It is here that we set the position of the wooden box to be near the camera. We only need to reposition the box when the Reality changes. Otherwise it will just move to remain near the camera. </p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">   var realityInit = false
+   var boxPos= [0,0,0]  
+   three.on("argon:realityChange", function(event) {
+   realityInit = true;
+    // set the position to be near the camera
+    var cameraPosition = three.camera.getWorldPosition();
+    cameraPosition.x += 5;    
+    boxGeoObject.position.copy(cameraPosition)
+    three.argon.updateEntityFromObject(boxGeoObject)
+    // getCartographicDegreesFromObject will return undefined if geoObject is not defined in geographic coordinates  which would happen if this Reality does not support geographic coordinates
+    geoObjectPos = three.argon.getCartographicDegreesFromObject(boxGeoObject) || [0,0,0]
+  })   </code></pre></figure>
+
+<h2 id="the-update-event">The update event</h2>
+
+<p>Our second event listener is code that we want to fire each time three.js  updates (redraws) the scene. In this example, we update the screen element with the current numerical information  (lat and lon of the camera etc.)  We also make the boxes rotates for visual interest. This update event is where the developer can put anything that needs to change dynamically every time the scene is redrawn. 
+ <em>argon.js</em>’s update state is stored in the threestrap update event.argonState field. In general, this is only needed if you need to know lower-level information from  <em>argon.js</em> , such as the raw geolocation, which we grab and print in a div on the bottom of the screen.</p>
+
+<p>The state parameter has the following entries:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">    {
+    frameNumber: integer,
+    time: a Cesium time for the update,
+    referenceFrame: the root reference, either Cesium ReferenceFrame.FIXED or {id: frameId},
+    position: {
+        cartesian: Cesium.Cartesian,
+        cartographicDegrees: [longitude, latitude, height] 
+     },
+    orientation: {
+        unitQuaternion: Cesium.Quaternion                 //  The orientation in reference frame 
+        unitQuaternionRelative: Cesium.Quaternion,        //  The orientation relative to local origin
+     },
+    frustum: {
+        fov: number, 
+        fovy: number, 
+        aspectRatio: number
+     },
+    reality: {id: realityID}
+    }   </code></pre></figure>
+
+<p>Here is the update function.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">    three.on('update', function(event) {
+    var elem = document.getElementById('location');     
+    var state = event.argonState
+  </code></pre></figure>
+
+<p>We ignore updates until we have a reality:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">      if (!realityInit) {
+      elem.innerText = "No Reality Yet"
+      return
+    }
+   </code></pre></figure>
+
+<p>We want the position of the device: CartographicDegrees is a 3 element array containing [longitude, latitude, height]. We get this from the state vector.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">   var gpsPos = [0,0,0];
+    if (state.position.cartographicDegrees) {
+      gpsPos = state.position.cartographicDegrees;
+    }
+   </code></pre></figure>
+
+<p>Now we make both boxes rotate to add some visual interest.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">    buzz.rotation.y += 2 * three.Time.delta
+    box.rotation.y += 3 * three.Time.delta
+   </code></pre></figure>
+
+<p>Now, we compute the distance from the camera to each of the two cubes to the cube. If the cube could be “far” away, we’d want to use Cesium.EllipsoidGeodesic, rather than Euclidean distance, but this is fine here.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">    var point1 = three.camera.getWorldPosition();
+    var point2 = buzz.getWorldPosition();
+    var point3 = box.getWorldPosition();
+    var distance = point1.distanceTo( point2 );
+    var distance2 = point1.distanceTo( point3 );
+   </code></pre></figure>
+
+<p>Finally we format the text that will go into the div element created in index.html and displayed at the bottom of the user’s screen.  This information will change as the user walks around with the phone. 
+Note that we do not read or assign text to the DOM element itself until the very end, in order to prevent unnecessary DOM invalidations. (See the warning about DOM invalidations in the Overview.)</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html">    var infoText = "Geospatial Argon3 example:\n"
+    infoText += "eye (" + toFixed(gpsPos[0],6) + ", ";
+    infoText += toFixed(gpsPos[1], 6) + ", " + toFixed(gpsPos[2], 2) + ")\n";
+    infoText += "cube(" + toFixed(boxPos[0], 6) + ", ";
+    infoText += toFixed(boxPos[1], 6) + ", " + toFixed(boxPos[1],2) + ")\n";
+    infoText += "distance to GT (" + toFixed(distance,2) + ")";
+    infoText += " distance to box (" + toFixed(distance2,2) + ")";
+
+    if (lastInfoText !== infoText) {  
+      elem.innerText = infoText;
+      lastInfoText = infoText;   
+   </code></pre></figure>
+
+<p>This tutorial (2) showed how to position geoObjects using GPS. In the next tutorial (6), we will see how to position objects using <a href="https://developer.vuforia.com/">Vuforia</a>’s image tracking system.</p>
 
 </div>
 
@@ -160,8 +318,8 @@ Regardless of location, you should see a floating wooden box.</p>
     
       <li>
         <h3>
-          <a href="/tutorials/Tutorial6.html">
-            Tutorial 6 - Using Argon.js with Vuforia
+          <a href="/tutorials/tutorial7">
+            Tutorial 7 - Building and Debugging
             <small>01 Mar 2016</small>
           </a>
         </h3>
@@ -169,8 +327,8 @@ Regardless of location, you should see a floating wooden box.</p>
     
       <li>
         <h3>
-          <a href="/tutorials/Tutorial4.html">
-            Tutorial 4 - Panorama Reality
+          <a href="/tutorials/tutorial6">
+            Tutorial 6 - Using Argon.js with Vuforia
             <small>01 Mar 2016</small>
           </a>
         </h3>

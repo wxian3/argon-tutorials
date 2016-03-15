@@ -5,16 +5,17 @@ title: Welcome
 
 This site contains a collection of tutorials for web developers using argon.js to add AR content to a web application. On this page, we provide an overview of the design of argon.js, introducing the terminology and concepts used by the framework. In the tutorials, we will go through a sequence of examples that show how to leverage the various features of argon.js in a web application.
 
-* [Tutorial 1 - Getting Started]({{ site.baseurl }}tutorials/Tutorial1)
-* [Tutorial 2 - Compass]({{ site.baseurl }}tutorials/Tutorial2)
-* [Tutorial 3 - Periodic table]({{ site.baseurl }}tutorials/Tutorial3)
-* [Tutorial 4 - Panorama Reality]({{ site.baseurl }}tutorials/utorial4)
-* [Tutorial 5 - Geolocation]({{ site.baseurl }}tutorials/Tutorial5)
-* [Tutorial 6 - Using Argon.js with Vuforia]({{ site.baseurl }}tutorials/Tutorial6)
+* [Tutorial 1 - Getting Started]({{ site.baseurl }}tutorials/tutorial1)
+* [Tutorial 2 - Compass]({{ site.baseurl }}tutorials/tutorial2)
+* [Tutorial 3 - Periodic table]({{ site.baseurl }}tutorials/tutorial3)
+* [Tutorial 4 - Panorama Reality]({{ site.baseurl }}tutorials/tutorial4)
+* [Tutorial 5 - Geolocation]({{ site.baseurl }}tutorials/tutorial5)
+* [Tutorial 6 - Using Argon.js with Vuforia]({{ site.baseurl }}tutorials/tutorial6)
+* [Tutorial 7 - Building and Debugging]({{ site.baseurl }}tutorials/tutorial7)
 
-* For more information about Argon3, please visit [overview](tutorials/Overview).
+* For more information about Argon3, please visit [overview]({{ site.baseurl }}tutorials/Overview).
 
-* Download open-source Argon.js framework from Argonjs [Github repository](https://github.com/argonjs/argon.js) and <a href="{{ site.baseurl }}/argon-tutorials.zip">Download</a> tutorials source files from this site
+* Download open-source Argon.js framework from Argonjs [Github repository](https://github.com/argonjs/argon.js) or <a href="{{ site.baseurl }}argon.js.zip">Download</a> Argon.js source files from this site
 
 The initial release of argon.js works primarily in the [Argon3](https://itunes.apple.com/us/app/argon3/id944297993?ls=1&mt=8) browser for iOS, and these tutorials focus specifically on using argon.js to create and debug AR web applications for the Argon3 browser. As additional support is added to argon.js for other platforms, we will expand the tutorials as appropriate.
 

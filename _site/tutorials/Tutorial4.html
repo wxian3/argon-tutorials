@@ -15,14 +15,14 @@
   </title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/argon-tutorials/public/css/poole.css">
-  <link rel="stylesheet" href="/argon-tutorials/public/css/syntax.css">
-  <link rel="stylesheet" href="/argon-tutorials/public/css/lanyon.css">
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/lanyon.css">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 
   <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/argon-tutorials/public/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/argon-tutorials/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
@@ -42,14 +42,15 @@
   </div>
 
   <nav class="sidebar-nav">
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/WelcomePage">Home</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Overview">Overview</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial1">Tutorial 1</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial2">Tutorial 2</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial3">Tutorial 3</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial4">Tutorial 4</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial5">Tutorial 5</a></li>
-    <li class="sidebar-nav-item"><a href="/argon-tutorials/tutorials/Tutorial6">Tutorial 6</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/WelcomePage">Home</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/Overview">Overview</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial1">Tutorial 1 - Getting Started</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial2">Tutorial 2 - Compass</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial3">Tutorial 3 - Periodic Table</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial4">Tutorial 4 - Panorama Reality</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial5">Tutorial 5 - Geolocation</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial6">Tutorial 6 - Use Argon.js with Vuforia</a></li>
+    <li class="sidebar-nav-item"><a href="/tutorials/tutorial7">Tutorial 7 - Building and Debugging</a></li>
 
     
 
@@ -60,19 +61,13 @@
       
     
       
-        
-          <a class="sidebar-nav-item" href="/about">About</a>
-        
-      
-    
-      
     
       
     
       
     
 
-    <a class="sidebar-nav-item" href="/argon-tutorials//argon-tutorials.zip">Download</a>
+    <a class="sidebar-nav-item" href="/argon.js.zip">Download Argon.js</a>
     <a class="sidebar-nav-item" href="https://github.com/argonjs/argon.js">GitHub project</a>
     <span class="sidebar-nav-item">Currently v1.0.0</span>
   </nav>
@@ -104,9 +99,11 @@
   <h1 class="post-title">Tutorial 4 - Panorama Reality</h1>
   <span class="post-date">01 Mar 2016</span>
   <h3 id="before-you-start">Before you start</h3>
-<p>Make sure you have completed <a href="/about">tutorial 1</a></p>
+<p>Make sure you have completed <a href="/tutorials/tutorial1">tutorial 1</a></p>
 
 <h3 id="what-you-should-see">What you should see</h3>
+<p>Download <a href="https://itunes.apple.com/us/app/argon3/id944297993?ls=1&amp;mt=8">Argon3</a> and <a href="/code/argon.js/dist/argon-tutorials/tutorial4-Panorama">Try Now</a></p>
+
 <p>As you move your camera around, you should see a panoramic, 360-degree view of Atlanta’s midtown.</p>
 <div class="video">
     <figure>
@@ -136,12 +133,12 @@ We will see the code below for creating each kind.</li>
 <h3 id="main-file-indexhtml">Main file (index.html)</h3>
 <p>In the html file, we call the others scripts as usual. The body tag contains an explanation of the pano, which the user will see in Page mode.</p>
 
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">body</span> <span class="nx">style</span><span class="o">=</span><span class="s2">"background-color:rgba(255,255,255,0.7)"</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">Panorama</span> <span class="nx">as</span> <span class="nx">reality</span> <span class="p">(</span><span class="nx">background</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/h2</span><span class="err">&gt;
-</span>      <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">This</span> <span class="nx">example</span> <span class="nx">illustrate</span> <span class="nx">the</span> <span class="nx">use</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">panorama</span> <span class="nx">as</span> <span class="nx">an</span> <span class="nx">Argon</span> <span class="nx">reality</span><span class="p">...</span>
-        <span class="p">...</span>
-      <span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
-</span><span class="o">&lt;</span><span class="sr">/body&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;body</span> <span class="na">style=</span><span class="s">"background-color:rgba(255,255,255,0.7)"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Panorama as reality (background)<span class="nt">&lt;/h2&gt;</span>
+      <span class="nt">&lt;p&gt;</span>This example illustrate the use of a panorama as an Argon reality...
+        ...
+      <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span></code></pre></figure>
 
 <h3 id="code-file-appjs">Code file (app.js)</h3>
 <p>To begin we define the immersive Context to be a panorama (instead of the device’s camera, which is the default).</p>
@@ -210,8 +207,8 @@ We will see the code below for creating each kind.</li>
     
       <li>
         <h3>
-          <a href="/tutorials/Tutorial6.html">
-            Tutorial 6 - Using Argon.js with Vuforia
+          <a href="/tutorials/tutorial7">
+            Tutorial 7 - Building and Debugging
             <small>01 Mar 2016</small>
           </a>
         </h3>
@@ -219,8 +216,8 @@ We will see the code below for creating each kind.</li>
     
       <li>
         <h3>
-          <a href="/tutorials/Tutorial5.html">
-            Tutorial 5 - Geolocation
+          <a href="/tutorials/tutorial6">
+            Tutorial 6 - Using Argon.js with Vuforia
             <small>01 Mar 2016</small>
           </a>
         </h3>
